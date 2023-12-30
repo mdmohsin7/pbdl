@@ -27,14 +27,14 @@ class AbstractPBDLNodeFactory {
     PBDLImage(),
     PBDLOval(),
     PBDLSharedInstanceNode(),
-    PBDLSharedMasterNode(),
+    PBDLSharedMasterNode(overrideProperties: []),
     PBDLPolygon(),
     PBDLRectangle(),
     PBDLStar(),
     PBDLText(),
     PBDLVector(),
     PBDLProject(),
-    PBDLPage(),
+    PBDLPage(screens: []),
     PBDLScreen(),
     PBDLFrame(),
     PBDLRow(),
@@ -43,7 +43,7 @@ class AbstractPBDLNodeFactory {
 
   AbstractPBDLNodeFactory();
 
-  static PBDLNode getPBDLNode(Map<String, dynamic> json) {
+  static PBDLNode? getPBDLNode(Map<String, dynamic> json) {
     var className = json[DESIGN_CLASS_KEY];
     if (className != null) {
       for (var designNode in _designNodes) {

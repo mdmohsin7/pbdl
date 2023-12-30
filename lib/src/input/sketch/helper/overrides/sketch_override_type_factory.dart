@@ -10,7 +10,6 @@ import 'package:pbdl/src/input/sketch/helper/overrides/sketch_override_type.dart
 
 class SketchOverrideTypeFactory {
   static final _overrideTypes = <SketchOverrideType>[
-    SketchOverrideImage(),
     SketchOverrideStyle(),
     SketchOverrideSymbolID(),
     SketchOverrideTextStyle(),
@@ -18,8 +17,8 @@ class SketchOverrideTypeFactory {
   ];
 
   /// Returns an [OverrideType] from an [OverridableValue].
-  static SketchOverrideType getType(SketchOverride node) {
-    var uuidTypeMap = SymbolNodeMixin.extractParameter(node.overrideName);
+  static SketchOverrideType? getType(SketchOverride node) {
+    var uuidTypeMap = SymbolNodeMixin.extractParameter(node.overrideName!);
     var type = uuidTypeMap['type'];
     for (var ovrType in _overrideTypes) {
       if (ovrType.TYPE_NAME == type) {

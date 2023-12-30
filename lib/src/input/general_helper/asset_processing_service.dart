@@ -1,10 +1,19 @@
 import 'dart:io';
 import 'dart:typed_data';
+import '../figma/entities/style/figma_effect.dart';
+import '../figma/helper/figma_asset_processor.dart';
+import '../figma/helper/figma_rect.dart';
 import 'azure_asset_service.dart';
 import 'package:recase/recase.dart';
 
 abstract class AssetProcessingService {
-  dynamic processImage(String uuid);
+  String processImage(
+    String? uuid, {
+    FigmaRect? absoluteBoundingBox,
+    required String name,
+    IMAGE_FORMAT format = IMAGE_FORMAT.PNG,
+    List<FigmaEffect>? effects,
+  });
 
   Future<void> processRootElements(Map uuids);
 
@@ -26,7 +35,7 @@ abstract class AssetProcessingService {
     }
   }
 
-  Future<void> uploadToStorage(Uint8List img, String name) async {
+  Future<void> uploadToStorage(Uint8List img, String? name) async {
     if (Platform.environment.containsKey(AzureAssetService.KEY_NAME) &&
         aaService.projectUUID != null) {
       // Upload image to storage
